@@ -19,8 +19,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.person.Member;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -74,8 +74,8 @@ public class ModelManagerTest {
         modelManager.deleteTag(new Tag(VALID_TAG_FRIEND));
 
         ModelManager expectedModelManager = new ModelManager(addressBook, userPrefs);
-        Person amyWithoutFriendTag = new PersonBuilder(AMY).withTags().build();
-        Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Member amyWithoutFriendTag = new PersonBuilder(AMY).withTags().build();
+        Member bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         expectedModelManager.updatePerson(AMY, amyWithoutFriendTag);
         expectedModelManager.updatePerson(BOB, bobWithoutFriendTag);
 

@@ -10,7 +10,7 @@ import seedu.address.model.person.Member;
 /**
  * An UI component that displays information of a {@code Member}.
  */
-public class PersonCard extends UiPart<Region> {
+public class MemberCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -39,7 +39,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Member member, int displayedIndex) {
+    public MemberCard(Member member, int displayedIndex) {
         super(FXML);
         this.member = member;
         id.setText(displayedIndex + ". ");
@@ -58,12 +58,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof MemberCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        MemberCard card = (MemberCard) other;
         return id.getText().equals(card.id.getText())
                 && member.equals(card.member);
     }

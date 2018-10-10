@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Member;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
@@ -43,11 +43,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the member list with {@code members}.
+     * {@code members} must not contain duplicate members.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Member> members) {
+        this.persons.setPersons(members);
     }
 
     /**
@@ -59,57 +59,57 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //// member-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a member with the same identity as {@code member} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Member member) {
+        requireNonNull(member);
+        return persons.contains(member);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a member to the address book.
+     * The member must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Member p) {
         persons.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given member {@code target} in the list with {@code editedMember}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The member identity of {@code editedMember} must not be the same as another existing member in the address book.
      */
-    public void updatePerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void updatePerson(Member target, Member editedMember) {
+        requireNonNull(editedMember);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedMember);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Member key) {
         persons.remove(key);
     }
     /**
-     * Removes {@code tag} from {@code person} in this {@code AddressBook}.
+     * Removes {@code tag} from {@code member} in this {@code AddressBook}.
      */
-    private void removeTagFromPerson(Tag tag, Person person) {
+    private void removeTagFromPerson(Tag tag, Member member) {
 
-        Set<Tag> newTags = new HashSet<>(person.getTags());
+        Set<Tag> newTags = new HashSet<>(member.getTags());
 
         if (!newTags.remove(tag)) {
             return;
         }
 
-        Person newPerson = new Person(person.getName(),
-                person.getPhone(), person.getEmail(), person.getAddress(), newTags);
+        Member newMember = new Member(member.getName(),
+                member.getPhone(), member.getEmail(), member.getAddress(), newTags);
 
-        updatePerson(person, newPerson);
+        updatePerson(member, newMember);
     }
 
     public void removeTag (Tag tag) {
@@ -125,7 +125,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Member> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 

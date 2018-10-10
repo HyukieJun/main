@@ -52,7 +52,7 @@ public class FindMemberCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different member -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 

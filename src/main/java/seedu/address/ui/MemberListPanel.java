@@ -1,9 +1,6 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
-
 import com.google.common.eventbus.Subscribe;
-
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,32 +10,35 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.Member;
+import seedu.address.model.members.Member;
+
+import java.util.logging.Logger;
 
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
+
+public class MemberListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(MemberListPanel.class);
 
     @FXML
-    private ListView<Member> personListView;
+    private ListView<Member> MemberListView;
 
-    public PersonListPanel(ObservableList<Member> memberList) {
+    public MemberListPanel(ObservableList<Member> memberList) {
         super(FXML);
         setConnections(memberList);
         registerAsAnEventHandler(this);
     }
 
     private void setConnections(ObservableList<Member> memberList) {
-        personListView.setItems(memberList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        MemberListView.setItems(memberList);
+        MemberListView.setCellFactory(listView -> new MemberListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        MemberListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in member list panel changed to : '" + newValue + "'");
@@ -52,8 +52,8 @@ public class PersonListPanel extends UiPart<Region> {
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            MemberListView.scrollTo(index);
+            MemberListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -66,7 +66,7 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Member} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Member> {
+    class MemberListViewCell extends ListCell<Member> {
         @Override
         protected void updateItem(Member member, boolean empty) {
             super.updateItem(member, empty);
@@ -75,7 +75,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(member, getIndex() + 1).getRoot());
+                setGraphic(new MemberCard(member, getIndex() + 1).getRoot());
             }
         }
     }
